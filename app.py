@@ -54,13 +54,14 @@ def index():
 
         response = openai.Completion.create(
             model="code-davinci-002",
-            prompt="",
+            prompt=prompt,
             temperature=0,
             max_tokens=256,
             top_p=1,
             frequency_penalty=0,
             presence_penalty=0
         )
+
         # response = context_setting.completion(prompt,
         #                               user=User,
         #                               bot=Bot,
