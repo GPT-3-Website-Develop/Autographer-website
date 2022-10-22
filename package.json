@@ -1,0 +1,22 @@
+{
+  "name": "codegenerator-master",
+  "version": "1.0.0",
+  "description": "Its’ finally here 🎉, I’m incredibly excited to announce my first web-dev project – [PyOoshi](https://pythongeneration.ooshimus.com). [PyOoshi](https://pythongeneration.ooshimus.com) came after a week of hard work learning HTML, CSS and JS from scratch leading to my first project. After trial and error, organisation and lots of SO I came to my final project✨️",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^10.4.12",
+    "postcss": "^8.4.18",
+    "tailwindcss": "^3.2.1",
+    "vite": "^3.1.8"
+  },
+  "dependencies": {
+    "daisyui": "^2.33.0"
+  }
+}

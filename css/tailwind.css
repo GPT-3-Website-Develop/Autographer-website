@@ -1,0 +1,3 @@
+@tailwind base; /* Entry Point Directive */
+@tailwind components; 
+@tailwind utilities;
