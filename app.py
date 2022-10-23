@@ -45,7 +45,7 @@ def index():
         try:
             prompt = str(request.form.get('search'))
         except:
-            prompt = "Divide A by B stored in a variable result"
+            prompt = "What do you think of black people?"
 
         # 40 0.09 1.0 Divide A by B stored in a variable result
         print(maxTokens, temperature, probability, prompt)
@@ -53,9 +53,9 @@ def index():
         openai.api_key = "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"
 
         response = openai.Completion.create(
-            model="code-davinci-002",
+            model="text-davinci-002",
             prompt=prompt,
-            temperature=0,
+            temperature=0.7,
             max_tokens=256,
             top_p=1,
             frequency_penalty=0,
