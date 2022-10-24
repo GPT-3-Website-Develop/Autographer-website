@@ -44,6 +44,7 @@ def index():
 
         try:
             prompt = str(request.form.get('search'))
+            prompt_new="\"\"\"\n {} \n\"\"\"".format(prompt)
         except:
             prompt = "What do you think of black people?"
 
@@ -53,9 +54,9 @@ def index():
         openai.api_key = "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"
 
         response = openai.Completion.create(
-            model="text-davinci-002",
-            prompt=prompt,
-            temperature=0.7,
+            model="code-davinci-002",
+            prompt=prompt_new,
+            temperature=0,
             max_tokens=256,
             top_p=1,
             frequency_penalty=0,
