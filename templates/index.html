@@ -133,7 +133,11 @@
                             
                         {% endblock content %}
                     {% endif %}
-                    <input type="button" onclick="myMethod2()" value="myMethod2"/>
+                    <br>
+                    <br>
+                    <!-- <input type="button" onclick="myMethod2()" value="myMethod2"/> -->
+                    <a id="save-button" class="btn">Save</a>
+
                 </div>
             </div> 
 
@@ -158,30 +162,31 @@
         magicMouse(options);
     </script>
     <script type="text/javascript">
+        const button = document.getElementById('save-button')
         
+
+        button.addEventListener('click', ()=>{
+            let postTextBox = document.getElementsByTagName("code");
+            console.log("postTextBox", postTextBox);
+
+            let postText = Array.from(postTextBox).map(e=>e.innerText).join("\n");
+            console.log("postText", postText);
+            console.log("This works ")
+
+        })
+
         function myMethod2(){
-            $.ajax({
-                type:'POST',
-                url: uploadForm.action,
-                enctype: 'multipart/form-data',
-                data: fd,
-                beforeSend: function(){
-                    console.log('before')
+            console.log("This works ")
+            fetch('https://reqbin.com/echo/post/json', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
                 },
-                xhr: function(){
-                    const xhr = new window.XMLHttpRequest();
-                    return xhr
-                },
-                success: function(response){
-                    console.log(response)
-                },
-                error: function(error){
-                    console.log(error)
-                },
-                cache: false,
-                contentType: false,
-                processData: false,
+                body: JSON.stringify({ "id": 78912 })
             })
+            .then(response => response.json())
+            .then(response => console.log(JSON.stringify(response)))
         }
     </script>
 </body>
