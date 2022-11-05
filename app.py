@@ -69,14 +69,16 @@ def index():
         #                               max_tokens=maxTokens,
         #                               temperature=temperature,
         #                               top_p=probability)
-        print(str(response).splitlines())
+        # print("Here: ", str(response).splitlines())
         # print(response.choices)
         json_data = json.loads(str(response))
-        print(json_data)
+        # print("Here111: ", str(json_data).splitlines())
         choicesDict = response["choices"][0]
         # json_data2 = json.loads(str(choicesDict))
 
         resultToDisplay = (choicesDict["text"])
+        print("Here111: ", str(resultToDisplay).splitlines())
+        # print("Here222: ", str(resultToDisplay).replace('\n', '<br>'))
 
     else:
         print("Working Get")
@@ -86,7 +88,7 @@ def index():
         probability = 1.0
         resultToDisplay = False
 
-    return render_template("index.html", outputColour = outputColour, maxTokens = maxTokens, temperature = temperature, probability = probability, response = resultToDisplay)
+    return render_template("index.html", outputColour = outputColour, maxTokens = maxTokens, temperature = temperature, probability = probability, response = str(resultToDisplay).splitlines())
   
 
 if __name__ == "__main__":  # Makes sure this is the main process

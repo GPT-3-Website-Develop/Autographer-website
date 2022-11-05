@@ -126,7 +126,9 @@
                         {% block content %}
 
                             <div contenteditable="true" class="mockup-code text-left">
-                                    <code contenteditable="true" class="px-5 justify-start justify-self-start" >{{ response }}</code><br>
+                                {% for codee in response %}
+                                    <code contenteditable="true" class="px-5 justify-start justify-self-start" >{{ codee }}</code><br>
+                                {% endfor %}   
                             </div>
                             
                         {% endblock content %}
