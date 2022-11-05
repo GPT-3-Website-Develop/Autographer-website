@@ -69,7 +69,7 @@ def index():
         #                               max_tokens=maxTokens,
         #                               temperature=temperature,
         #                               top_p=probability)
-        print(str(response))
+        print(str(response).splitlines())
         # print(response.choices)
         json_data = json.loads(str(response))
         print(json_data)
