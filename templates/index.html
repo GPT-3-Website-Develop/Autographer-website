@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="forest">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -109,12 +109,12 @@
             </div> 
 
             <!-- Output add class bg-primary when has output -->
-            <div tabindex="0" class="{{ outputColour }} collapse w-auto border rounded-box border-base-300 collapse-arrow mt-5 "> 
+            <div tabindex="0" class="collapse w-auto border rounded-box border-base-300 collapse-arrow mt-5 "> 
                 <div class="collapse-title text-s font-normal">
                 Output
                 <progress class="progress progress-primary" value="0" max="100"></progress>
                 </div> 
-                <div class="collapse-content"> 
+                <div> 
                     
                     <p>Your input values were (they default if not entered correctly): <br>
                         <span class="badge badge-outline">Max Tokens: {{ maxTokens }}</span> <br> 
@@ -125,12 +125,13 @@
                     {% if response != false %}
                         {% block content %}
 
-                            <div class="mockup-code text-left">
-                                    <code class="px-5 justify-start justify-self-start" >{{ response }}</code><br>
+                            <div contenteditable="true" class="mockup-code text-left">
+                                    <code contenteditable="true" class="px-5 justify-start justify-self-start" >{{ response }}</code><br>
                             </div>
                             
                         {% endblock content %}
                     {% endif %}
+                    <input type="button" onclick="myMethod2()" value="myMethod2"/>
                 </div>
             </div> 
 
@@ -153,6 +154,33 @@
         "outerHeight": 30
           };
         magicMouse(options);
+    </script>
+    <script type="text/javascript">
+        
+        function myMethod2(){
+            $.ajax({
+                type:'POST',
+                url: uploadForm.action,
+                enctype: 'multipart/form-data',
+                data: fd,
+                beforeSend: function(){
+                    console.log('before')
+                },
+                xhr: function(){
+                    const xhr = new window.XMLHttpRequest();
+                    return xhr
+                },
+                success: function(response){
+                    console.log(response)
+                },
+                error: function(error){
+                    console.log(error)
+                },
+                cache: false,
+                contentType: false,
+                processData: false,
+            })
+        }
     </script>
 </body>
 </html>
