@@ -17,6 +17,7 @@
     "vite": "^3.1.8"
   },
   "dependencies": {
+    "chartjs-plugin-annotation": "^2.1.0",
     "daisyui": "^2.33.0"
   }
 }
