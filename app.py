@@ -55,7 +55,7 @@ def index():
 
         response = openai.Completion.create(
             model="code-davinci-002",
-            prompt=prompt_new,
+            prompt=prompt+"\n",
             temperature=0,
             max_tokens=256,
             top_p=1,
