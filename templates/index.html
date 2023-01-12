@@ -154,45 +154,25 @@
         </div>
         <div id="Area"></div>
         <h1>Let's plot random numbers</h1>
-        <div id="plot"></div>
-        <py-config type="json">
-            {
-            "packages": ["numpy", "matplotlib", "pandas"]
-            }
+        <div id="mpl"></div>
+        <py-config>
+            packages= [ "matplotlib", ]
         </py-config>
-        <py-script output="plot">
-            # import the necessary libraries
-            import matplotlib.pyplot as plt
-            import pandas as pd
-            
-            # read the data from the downloaded CSV file.
-            data = pd.read_csv('weather.csv')
-            
-            # create a new figure
-            plt.figure()
-            
-            # plot precipitation and temp_max as a scatter plot
-            plt.scatter(data['precipitation'], data['temp_max'])
-            
-            # set the x axis label
-            plt.xlabel('Precipitation')
-            
-            # set the y axis label
-            plt.ylabel('Max temperature')
-            
-            # set the title
-            plt.title('Precipitation vs Max temperature')
-            
-            # display the plot
-            plt.show()
-            
-            # save the plot as a file
-            plt.savefig('precipitation_vs_temp_max.png')
-            
-            # close the plot
-            plt.close()
-            
-        </py-script>
+        <py-script>
+								import matplotlib.pyplot as plt
+
+								name = ['John', 'Bob', 'Mosh', 'Sarah', 'Mary']
+								age = [23, 45, 12, 34, 56]
+
+								plt.plot(name, age)
+								plt.xlabel('Name')
+								plt.ylabel('Age')
+								plt.title('Age of people')
+								plt.show()
+								
+								#this is API to display on web
+								display(plt)
+				</py-script>
     </form>
 
     <script type="text/javascript" src="https://res.cloudinary.com/veseylab/raw/upload/v1613706377/magicmouse/magic_mouse-1.1.js"></script>
