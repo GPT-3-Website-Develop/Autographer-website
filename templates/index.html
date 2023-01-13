@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://res.cloudinary.com/veseylab/raw/upload/v1613706377/magicmouse/magic-mouse-1.1.css" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
     <link href="https://cdn.jsdelivr.net/npm/daisyui@1.11.0/dist/full.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
     <script src="https://d3js.org/d3.v4.js"></script>    
@@ -156,21 +157,18 @@
         <h1>Let's plot random numbers</h1>
         <div id="mpl"></div>
         <py-config>
-            packages= [ "matplotlib", ]
+            packages= [ "matplotlib", "pandas", "ssl"]
         </py-config>
         <py-script>
+								import pandas as pd
 								import matplotlib.pyplot as plt
+								from pyodide.http import open_url
 
-								name = ['John', 'Bob', 'Mosh', 'Sarah', 'Mary']
-								age = [23, 45, 12, 34, 56]
+								df = pd.read_csv(open_url("https://raw.githubusercontent.com/GPT-3-Website-Develop/Autographer-website/master/templates/weather.csv"))
 
-								plt.plot(name, age)
-								plt.xlabel('Name')
-								plt.ylabel('Age')
-								plt.title('Age of people')
+								plt.plot(df["date"], df["temp_max"])
 								plt.show()
-								
-								#this is API to display on web
+
 								display(plt)
 				</py-script>
     </form>
