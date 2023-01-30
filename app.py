@@ -23,8 +23,8 @@ def index():
         # Checks if max tokens is an integer and if it exceeds the max value
         try:
             maxTokens = int(request.form.get('maxTokens'))  # access the data inside
-            if maxTokens > 2048:
-                maxTokens = 2048
+            if maxTokens > 256:
+                maxTokens = 256
         except:
             maxTokens = 40
 
@@ -51,11 +51,15 @@ def index():
         # 40 0.09 1.0 Divide A by B stored in a variable result
         print(maxTokens, temperature, probability, prompt)
 
-        openai.api_key = "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"
+        openai.api_key = "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"
 
+        # promptFormatted = "import pandas as pd\nimport matplotlib.pyplot as plt\nfrom pyodide.http import open_url\ndf = pd.read_csv(open_url(\"https://raw.githubusercontent.com/GPT-3-Website-Develop/Autographer-website/master/templates/weather.csv\"))\n\n\"\"\"\n"
+        promptFormatted = ("\"\"\"\n" + prompt + "\n\"\"\"\n")
+        print(promptFormatted)
+        
         response = openai.Completion.create(
             model="code-davinci-002",
-            prompt=prompt+"\n",
+            prompt=promptFormatted,
             temperature=0,
             max_tokens=256,
             top_p=1,
@@ -86,7 +90,7 @@ def index():
         maxTokens = 40
         temperature = 0.09
         probability = 1.0
-        resultToDisplay = False
+        resultToDisplay = ""
 
     return render_template("index.html", outputColour = outputColour, maxTokens = maxTokens, temperature = temperature, probability = probability, response = str(resultToDisplay).splitlines())
   
