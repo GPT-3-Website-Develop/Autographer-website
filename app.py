@@ -51,7 +51,7 @@ def index():
         # 40 0.09 1.0 Divide A by B stored in a variable result
         print(maxTokens, temperature, probability, prompt)
 
-        openai.api_key = "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"
+        openai.api_key = "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"
 
         # promptFormatted = "import pandas as pd\nimport matplotlib.pyplot as plt\nfrom pyodide.http import open_url\ndf = pd.read_csv(open_url(\"https://raw.githubusercontent.com/GPT-3-Website-Develop/Autographer-website/master/templates/weather.csv\"))\n\n\"\"\"\n"
         promptFormatted = ("\"\"\"\n" + prompt + "\n\"\"\"\n")
