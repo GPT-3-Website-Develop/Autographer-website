@@ -74,7 +74,6 @@
         </div>
 
         <div class="container mx-auto px-10 md:px-30 lg:40">
-            
             <!-- Title-->
             <h1 class="text-center text-2xl font-semibold p-8 md:p-16 lg:text-4xl 2xl:text-5xl">Code Generator v0.1</h1>
             <!-- Form -->
@@ -110,46 +109,63 @@
                     <p>Divide A by B and store it in result <br>Generate the sine values from 0 to 1. <br>Convert input from Celcius to Farenheit <br>Perform a google search of what the user wants and print the top result <br>Print what part of the day is going on right now <br>Make a password generator <br></p>
                 </div>
             </div> 
-            <br>
-            <br>
-            <!-- Output add class bg-primary when has output -->
-            <div class="text-s font-normal">
-                Output
-                <!-- <progress class="progress progress-primary" value="0" max="100"></progress> -->
-            </div> 
-            <div tabindex="0" class="collapse w-auto border rounded-box border-base-300 collapse-arrow"> 
-                <div> 
-                    <p>
-                        <!-- Your input values were (they default if not entered correctly): <br> -->
-                        <span class="badge badge-outline">Max Tokens: {{ maxTokens }}</span> <br> 
-                        <!-- <span class="badge badge-outline">Temperature: {{ temperature }}</span> <br>
-                        <span class="badge badge-outline">Probability: {{ probability }}</span> <br> -->
-                    </p> <br>
-
-                    {% if response != false %}
-                        {% block content %}
-
-                            <div contenteditable="true" class="mockup-code text-left">
-                                {% for codee in response %}
-                                    <code contenteditable="true" class="px-5 justify-start justify-self-start" >
-                                        {{ codee }}
-                                    </code><br>
-                                {% endfor %}   
-                            </div>
-                            
-                        {% endblock content %}
-                    {% endif %}
-                    <br>
-                    <br>
-                    <!-- <input type="button" onclick="myMethod2()" value="myMethod2"/> -->
-                    <!-- <a id="save-button" class="btn">Save</a> -->
-
-                </div>
-            </div> 
-
-
         </div>
-        <div id="Area"></div>
+    </form>
+
+    <br>
+    <br>
+    <div class="container mx-auto px-10 md:px-30 lg:40">
+    <!-- Output add class bg-primary when has output -->
+        <div class="text-s font-normal">
+            Output
+            <!-- <progress class="progress progress-primary" value="0" max="100"></progress> -->
+        </div> 
+        <div tabindex="0" class="collapse w-auto border rounded-box border-base-300 collapse-arrow"> 
+            <div> 
+                <p>
+                    <!-- Your input values were (they default if not entered correctly): <br> -->
+                    <span class="badge badge-outline">Max Tokens: {{ maxTokens }}</span> <br> 
+                    <!-- <span class="badge badge-outline">Temperature: {{ temperature }}</span> <br>
+                    <span class="badge badge-outline">Probability: {{ probability }}</span> <br> -->
+                </p> <br>
+
+                {% if response != false %}
+                    {% block content %}
+
+                        <div contenteditable="true" value="code" id="my-content" name="code" class="mockup-code text-left">
+                            {% for codee in response %}
+                                <code contenteditable="true" class="px-5 justify-start justify-self-start" >
+                                    {{ codee }}
+                                </code><br>
+                            {% endfor %}   
+                        </div>
+                        
+                    {% endblock content %}
+                {% endif %}
+                <br>
+                <br>
+                <!-- <input type="button" onclick="myMethod2()" value="myMethod2"/> -->
+                <!-- <a id="save-button" class="btn">Save</a> -->
+            </div>
+        </div> 
+        <form action="{{url_for('copy')}}" method="post" onsubmit="getContent()">
+            <textarea id="my-textarea" name="my-textarea" style="display:none"></textarea>
+            <button  type="submit" class="rounded-l-none btn btn-primary" onclick="this.className='rounded-l-none btn btn-warning'">Run</button>
+        </form>
+
+        <!-- <button id="save-button" class="rounded-l-none btn btn-primary" onclick="this.className='rounded-l-none btn btn-warning'">Run</button> -->
+
+    </div>
+    <br>
+    <br>
+    <div class="container mx-auto px-10 md:px-30 lg:40">
+        <p>
+            {%for x in display%}
+                {{x}}
+                <br>
+            {%endfor%}
+        </p>
+    </div>
         <!-- {% if response != false %}
             {% block content2 %}
                 {% for codee in response %}
@@ -173,8 +189,6 @@
                 
             {% endblock content2 %}
         {% endif %} -->
-    </form>
-
     <!-- <script type="text/javascript" src="https://res.cloudinary.com/veseylab/raw/upload/v1613706377/magicmouse/magic_mouse-1.1.js"></script> -->
     <script type="text/javascript">
         const elem = document.getElementById('python');
@@ -244,11 +258,16 @@ df = pd.read_csv(open_url("https://raw.githubusercontent.com/GPT-3-Website-Devel
 
 // })
 
+        function getContent(){
+            console.log( document.getElementById("my-content").innerHTML);
+            document.getElementById("my-textarea").value =  document.getElementById("my-content").innerHTML;
+        }
+
         const button = document.getElementById('save-button')
         
 
         button.addEventListener('click', ()=>{
-            let postTextBox = document.getElementsByTagName("code");
+            let postTextBox = document.getElementById("my-content").innerHTML;
             console.log("postTextBox", postTextBox);
 
             let postText = Array.from(postTextBox).map(e=>e.innerText).join("\n");

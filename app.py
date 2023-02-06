@@ -4,6 +4,7 @@ from contextAndExamples import *
 import random
 import os
 import json
+import subprocess
 
 app = Flask(__name__)
 
@@ -92,11 +93,33 @@ def index():
         probability = 1.0
         resultToDisplay = ""
 
-    return render_template("index.html", outputColour = outputColour, maxTokens = maxTokens, temperature = temperature, probability = probability, response = str(resultToDisplay).splitlines())
+    return render_template("index.html", outputColour = outputColour, maxTokens = maxTokens, temperature = temperature, probability = probability, response = str(resultToDisplay).splitlines(), display="")
   
+@app.route("/home",methods=["POST","GET"])
+def home():
+    return render_template('home.html')
+
+@app.route("/output",methods=["POST","GET"])
+def output():
+    return render_template('output.html')
+
+
+@app.route("/copy",methods = ["POST", "GET"])
+def copy():
+    code = request.form.get("my-textarea")
+    print("code: ", code)
+    if (not code):
+        code = ""
+    arg =request.form.get("sys arg")
+    file = open("file.py","w+")
+    file.write(code)
+    file.close()
+    s=subprocess.getoutput("python3 file.py "+str(arg))
+    l=s.split('\n')
+    return render_template('index.html', outputColour = "bg-primary", maxTokens = 40, temperature = 1.0, probability = 1.0, response = "", display=l)
 
 if __name__ == "__main__":  # Makes sure this is the main process
 	app.run( # Starts the site
 		host='0.0.0.0',  # EStablishes the host, required for repl to detect the site
-		port=random.randint(2000, 9000)  # Randomly select the port the machine hosts on.
+		port=8000  # Randomly select the port the machine hosts on.
 	)
