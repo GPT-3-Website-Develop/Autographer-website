@@ -15,7 +15,7 @@
     <!-- <script defer src="https://pyscript.net/latest/pyscript.js"></script> -->
 </head>
 <body>
-    <form action="" method="post" id="form">
+    <form action="{{url_for('test')}}" method="post" id="form">
         <!-- Nav Bar -->
         <div class="navbar mb-2 shadow-lg bg-neutral text-neutral-content rounded-box">
             <div class="flex-1 px-2 mx-2 block">
@@ -120,6 +120,7 @@
             Output
             <!-- <progress class="progress progress-primary" value="0" max="100"></progress> -->
         </div> 
+        <form action="{{url_for('copy')}}" method="post" onsubmit="getContent()">
         <div tabindex="0" class="collapse w-auto border rounded-box border-base-300 collapse-arrow"> 
             <div> 
                 <p>
@@ -132,13 +133,16 @@
                 {% if response != false %}
                     {% block content %}
 
-                        <div contenteditable="true" value="code" id="my-content" name="code" class="mockup-code text-left">
+                    <textarea id="my-content" style="background: #3E4450; color: #FFFFFF; border-radius: 15px; width: 100%" name="code" class="px-5" rows="5" cols="60" name="text" placeholder="Enter text">
+                        {{response}}
+                    </textarea>
+                        <!-- <div contenteditable="true" value="code" id="my-content" class="mockup-code text-left">
                             {% for codee in response %}
-                                <code contenteditable="true" class="px-5 justify-start justify-self-start" >
+                                <code contenteditable="true" name="code" class="px-5 justify-start justify-self-start" >
                                     {{ codee }}
                                 </code><br>
                             {% endfor %}   
-                        </div>
+                        </div> -->
                         
                     {% endblock content %}
                 {% endif %}
@@ -146,12 +150,12 @@
                 <br>
                 <!-- <input type="button" onclick="myMethod2()" value="myMethod2"/> -->
                 <!-- <a id="save-button" class="btn">Save</a> -->
+                <button  type="submit" class="rounded-l-none btn btn-primary" onclick="this.className='rounded-l-none btn btn-warning'">Run</button>
             </div>
         </div> 
-        <form action="{{url_for('copy')}}" method="post" onsubmit="getContent()">
-            <textarea id="my-textarea" name="my-textarea" style="display:none"></textarea>
-            <button  type="submit" class="rounded-l-none btn btn-primary" onclick="this.className='rounded-l-none btn btn-warning'">Run</button>
-        </form>
+         </form>
+
+            <!-- <textarea id="my-textarea" name="my-textarea" style="display:none"></textarea> -->
 
         <!-- <button id="save-button" class="rounded-l-none btn btn-primary" onclick="this.className='rounded-l-none btn btn-warning'">Run</button> -->
 

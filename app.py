@@ -14,8 +14,8 @@ User = "Student"
 
 Bot = "Calculator"
 
-@app.route("/" , methods=['post', 'get'])
-def index():
+@app.route("/test" , methods=['post', 'get'])
+def test():
     print("Working")
     if request.method == 'POST':
         print("Working Post")
@@ -52,7 +52,7 @@ def index():
         # 40 0.09 1.0 Divide A by B stored in a variable result
         print(maxTokens, temperature, probability, prompt)
 
-        openai.api_key = "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"
+        openai.api_key = "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"
 
         # promptFormatted = "import pandas as pd\nimport matplotlib.pyplot as plt\nfrom pyodide.http import open_url\ndf = pd.read_csv(open_url(\"https://raw.githubusercontent.com/GPT-3-Website-Develop/Autographer-website/master/templates/weather.csv\"))\n\n\"\"\"\n"
         promptFormatted = ("\"\"\"\n" + prompt + "\n\"\"\"\n")
@@ -82,7 +82,7 @@ def index():
         # json_data2 = json.loads(str(choicesDict))
 
         resultToDisplay = (choicesDict["text"])
-        print("Here111: ", str(resultToDisplay).splitlines())
+        print("Here111: ", resultToDisplay)
         # print("Here222: ", str(resultToDisplay).replace('\n', '<br>'))
 
     else:
@@ -93,7 +93,7 @@ def index():
         probability = 1.0
         resultToDisplay = ""
 
-    return render_template("index.html", outputColour = outputColour, maxTokens = maxTokens, temperature = temperature, probability = probability, response = str(resultToDisplay).splitlines(), display="")
+    return render_template("index.html", outputColour = outputColour, maxTokens = maxTokens, temperature = temperature, probability = probability, response = "\n" + resultToDisplay, display="")
   
 @app.route("/home",methods=["POST","GET"])
 def home():
@@ -106,10 +106,22 @@ def output():
 
 @app.route("/copy",methods = ["POST", "GET"])
 def copy():
-    code = request.form.get("my-textarea")
+    code = request.form.get("code")
     print("code: ", code)
     if (not code):
         code = ""
+    code = code.replace("<code contenteditable=\"true\" name=\"code\" class=\"px-5 justify-start justify-self-start\">","")
+    code = code.replace("</code><br>","")
+    code = code.replace("<div>","")
+    code = code.replace("<br>","")
+    code = code.replace("</div>","")
+    code = code.replace("</code>","")
+    code = code.replace("<code>","")
+    code = code.replace("<font face=\"ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace\">", "")
+    code = code.replace("</font>", "")
+    code = code.replace("&nbsp;", "")
+    code = code.replace("&nbsp", "")
+    print("new code: ", code)
     arg =request.form.get("sys arg")
     file = open("file.py","w+")
     file.write(code)
