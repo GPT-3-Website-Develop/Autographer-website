@@ -8,7 +8,7 @@ Our website is a new type of 'Notebook' for learning coding. If you have done an
 
 ## Pre loading the dataset
 
-In this example we will use `airbnb.csv` as our dataset for analyzing Airbnb's houses. You will be working with for this project is reproduced here: ![ab_dataset]([/Users/tzz/Library/Mobile Documents/com~apple~CloudDocs/Documents/web_deve/ab_dataset.png](https://github.com/GPT-3-Website-Develop/Autographer-website/blob/b282e5a767734474b863924a8b751547aba0b5a0/ab_dataset.png))
+In this example we will use `airbnb.csv` as our dataset for analyzing Airbnb's houses. You will be working with for this project is reproduced here: ![ab_dataset](https://github.com/GPT-3-Website-Develop/Autographer-website/blob/b282e5a767734474b863924a8b751547aba0b5a0/ab_dataset.png)
 
 ### Preview parts of dataset
 
