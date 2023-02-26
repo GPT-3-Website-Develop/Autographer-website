@@ -52,7 +52,7 @@ def test():
         # 40 0.09 1.0 Divide A by B stored in a variable result
         print(maxTokens, temperature, probability, prompt)
 
-        openai.api_key = "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"
+        openai.api_key = "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"
 
         # promptFormatted = "import pandas as pd\nimport matplotlib.pyplot as plt\nfrom pyodide.http import open_url\ndf = pd.read_csv(open_url(\"https://raw.githubusercontent.com/GPT-3-Website-Develop/Autographer-website/master/templates/weather.csv\"))\n\n\"\"\"\n"
         promptFormatted = ("\"\"\"\n" + prompt + "\n\"\"\"\n")
@@ -92,8 +92,9 @@ def test():
         temperature = 0.09
         probability = 1.0
         resultToDisplay = ""
+        prompt = ""
 
-    return render_template("index.html", outputColour = outputColour, maxTokens = maxTokens, temperature = temperature, probability = probability, response = "\n" + resultToDisplay, display="")
+    return render_template("index.html", outputColour = outputColour, maxTokens = maxTokens, temperature = temperature, probability = probability, response = "\n" + resultToDisplay, display="", inputBoxText=prompt.strip())
   
 @app.route("/home",methods=["POST","GET"])
 def home():
@@ -107,9 +108,12 @@ def output():
 @app.route("/copy",methods = ["POST", "GET"])
 def copy():
     code = request.form.get("code")
+    inputBox = request.form.get("inputBox")
     print("code: ", code)
     if (not code):
         code = ""
+    if (not inputBox):
+        inputBox = ""
     code = code.replace("<code contenteditable=\"true\" name=\"code\" class=\"px-5 justify-start justify-self-start\">","")
     code = code.replace("</code><br>","")
     code = code.replace("<div>","")
@@ -128,7 +132,7 @@ def copy():
     file.close()
     s=subprocess.getoutput("python3 file.py "+str(arg))
     l=s.split('\n')
-    return render_template('index.html', outputColour = "bg-primary", maxTokens = 40, temperature = 1.0, probability = 1.0, response = "", display=l)
+    return render_template('index.html', outputColour = "bg-primary", maxTokens = 40, temperature = 1.0, probability = 1.0, response = code, display=l, inputBoxText=inputBox)
 
 if __name__ == "__main__":  # Makes sure this is the main process
 	app.run( # Starts the site

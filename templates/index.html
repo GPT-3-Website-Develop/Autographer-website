@@ -76,24 +76,7 @@
         <div class="container mx-auto px-10 md:px-30 lg:40">
             <!-- Title-->
             <h1 class="text-center text-2xl font-semibold p-8 md:p-16 lg:text-4xl 2xl:text-5xl">Code Generator v0.1</h1>
-            <!-- Form -->
-            <div class="form-control">
-                <label class="label">
-                    <span class="label-text text-xl"></span> <!-- Label if needed-->
-                </label> 
-                <div class="relative">
-                <textarea type="text" placeholder="Search" style="height: 200px" class="w-full h-40 pr-16 input input-primary input-bordered" name="search"></textarea> 
-                </div>
-                <button class="rounded-l-none btn btn-primary" onclick="this.className='rounded-l-none btn btn-warning'">GO</button>
-                <br>
-                <span class="badge badge-outline" for="cars">Language:</span>
-                <select name="language" id="language">
-                    <option value="python">Python</option>
-                    <!-- <option value="javascript">JavaScript</option> -->
-                </select>
-            </div>
-
-        <!-- Guide -->
+            <!-- Guide -->
             <div tabindex="0" class="collapse w-auto border rounded-box border-base-300 collapse-arrow mt-5"> 
                 <div class="collapse-title text-s font-normal">
                 Guide (Prompts & Note to mobile users)
@@ -109,10 +92,28 @@
                     <p>Divide A by B and store it in result <br>Generate the sine values from 0 to 1. <br>Convert input from Celcius to Farenheit <br>Perform a google search of what the user wants and print the top result <br>Print what part of the day is going on right now <br>Make a password generator <br></p>
                 </div>
             </div> 
+            <!-- Form -->
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text text-xl"></span> <!-- Label if needed-->
+                </label> 
+                <div class="relative">
+                <textarea type="text" placeholder="Input Prompt" style="height: 200px" class="w-full h-40 input input-primary input-bordered" name="search">{{inputBoxText}}</textarea> 
+                </div>
+                <button class="rounded-l-none btn btn-primary" onclick="this.className='rounded-l-none btn btn-warning'">GO</button>
+                <br>
+                <div class="text-s font-normal">
+                    Language
+                    <!-- <progress class="progress progress-primary" value="0" max="100"></progress> -->
+                </div> 
+                <span class="badge badge-outline" for="cars">Python</span>
+                <!-- <select name="language" id="language"> -->
+                    <!-- <option value="python">Python</option> -->
+                    <!-- <option value="javascript">JavaScript</option> -->
+                <!-- </select> -->
+            </div>
         </div>
     </form>
-
-    <br>
     <br>
     <div class="container mx-auto px-10 md:px-30 lg:40">
     <!-- Output add class bg-primary when has output -->
@@ -121,21 +122,20 @@
             <!-- <progress class="progress progress-primary" value="0" max="100"></progress> -->
         </div> 
         <form action="{{url_for('copy')}}" method="post" onsubmit="getContent()">
-        <div tabindex="0" class="collapse w-auto border rounded-box border-base-300 collapse-arrow"> 
-            <div> 
                 <p>
                     <!-- Your input values were (they default if not entered correctly): <br> -->
                     <span class="badge badge-outline">Max Tokens: {{ maxTokens }}</span> <br> 
                     <!-- <span class="badge badge-outline">Temperature: {{ temperature }}</span> <br>
                     <span class="badge badge-outline">Probability: {{ probability }}</span> <br> -->
                 </p> <br>
+                <div tabindex="0" class="collapse w-auto border rounded-box border-base-300 collapse-arrow"> 
+
+                <div> 
 
                 {% if response != false %}
                     {% block content %}
 
-                    <textarea id="my-content" style="background: #3E4450; color: #FFFFFF; border-radius: 15px; width: 100%" name="code" class="px-5" rows="5" cols="60" name="text" placeholder="Enter text">
-                        {{response}}
-                    </textarea>
+                    <textarea id="my-content" style="background: #3E4450; color: #FFFFFF; border-radius: 15px; width: 100%; height: 200px;" name="code" class="px-5" rows="5" cols="60" name="text" placeholder="Write Python Code">{{response}}</textarea>
                         <!-- <div contenteditable="true" value="code" id="my-content" class="mockup-code text-left">
                             {% for codee in response %}
                                 <code contenteditable="true" name="code" class="px-5 justify-start justify-self-start" >
@@ -146,14 +146,15 @@
                         
                     {% endblock content %}
                 {% endif %}
-                <br>
-                <br>
                 <!-- <input type="button" onclick="myMethod2()" value="myMethod2"/> -->
                 <!-- <a id="save-button" class="btn">Save</a> -->
-                <button  type="submit" class="rounded-l-none btn btn-primary" onclick="this.className='rounded-l-none btn btn-warning'">Run</button>
             </div>
-        </div> 
-         </form>
+        </div>
+        <br> 
+        <textarea name="inputBox" style="display:none;">{{inputBoxText}}</textarea>
+        <textarea name="result" style="display:none;"></textarea>
+        <button type="submit" class="rounded-l-none btn btn-primary" onclick="this.className='rounded-l-none btn btn-warning'">Run</button>
+        </form>
 
             <!-- <textarea id="my-textarea" name="my-textarea" style="display:none"></textarea> -->
 
@@ -170,6 +171,9 @@
             {%endfor%}
         </p>
     </div>
+    <br>
+    <br>
+    <br>
         <!-- {% if response != false %}
             {% block content2 %}
                 {% for codee in response %}
